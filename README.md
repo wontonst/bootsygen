@@ -17,7 +17,7 @@ section content
 }
 ```
 The page content may contain HTML, javascript, anything. There are also a few macros available.
-<b>There are two mandatory sectiontitles, title and category.</b> Title is the page title and category is the category to be listed under on the navbar. Category navbar ordering is set in config.php. There is also the description sectiontitle which will display in index.html as well as the top of the page. The sectiontitle summary may be used in the same fashion as description except it will not be placed on the main page.
+<b>There are two mandatory sectiontitles: title and category.</b> Title is the page title and category is the category to be listed under on the navbar. Category navbar ordering is set in config.php. There is also the description sectiontitle which will display in index.html as well as the top of the page. The sectiontitle summary may be used in the same fashion as description except it will not be placed on the main page.
 
 ##Page Macros
 Page macros were created because it's too ugly to have a lot of HTML code in the contents section. Macros are written in the following fashion
