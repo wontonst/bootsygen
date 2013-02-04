@@ -26,21 +26,20 @@ class Navbar {
                 $categories[] = $v->getCategory();
             }
         }
-        uasort($categories, $GLOBALS['NAVBAR_COMPARE']);
+        uasort($categories, $GLOBALS['CONFIG']['navbarfunction']);
         foreach ($categories as $v) {
             $out.='<li class = "nav-header">' . $v . '</li>' . "\n";
-	    $toprint=array();
+            $toprint=array();
             foreach ($pages as $p) {
                 if ($p->getCategory() == $v) {
-		  $toprint[]=$p;
+                    $toprint[]=$p;
                 }
             }
-	    uasort($toprint,'Page::comparePages');
-	    foreach($toprint as $p)
-	      {
-                    $out.='<li ' . ($highlight == $p->getTitle() ? 'class="active"' : '') . '><a href = "' . $p->getTitle() . '.html">' . $p->getTitle() . '</a></li>' . "\n";
+            uasort($toprint,'Page::comparePages');
+            foreach($toprint as $p) {
+                $out.='<li ' . ($highlight == $p->getTitle() ? 'class="active"' : '') . '><a href = "' . $p->getTitle() . '.html">' . $p->getTitle() . '</a></li>' . "\n";
 
-	      }
+            }
         }
         return $out;
     }

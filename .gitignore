@@ -1,2 +1,5 @@
 *.html
 log.out
+
+*~
+*.orig

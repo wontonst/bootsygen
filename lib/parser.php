@@ -13,6 +13,14 @@ class Parser {
         }
         return Page::create($exploded);
     }
+    public static function parseDir(&$dirpath) {
+        $dir = opendir($dirpath);
+        while($a = readdir($dir)) {
+            if(strlen($a) > 4 && substr($a,-4) == '.txt')
+                $arr[]=substr($a,0,-4);
+        }
+        return $arr;
+    }
 
 }
 

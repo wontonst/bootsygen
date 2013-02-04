@@ -17,7 +17,7 @@ class Page {
     public static function create($info) {
         $page = new Page();
         foreach ($info as $k => $v) {
-	  $v = Page::parseContent($v);
+            $v = Page::parseContent($v);
             switch (strtoupper($k)) {
             case 'TITLE':
                 $page->title = $v;
@@ -34,25 +34,21 @@ class Page {
         }
         return $page;
     }
-    public static function parseContent(&$content)
-    {
-      $exploded = explode("\n",$content);
-      foreach($exploded as &$line)
-	{
-	  if(strpos($line,'$(') == 0)
-	    {
-	      $input = substr($line,2,-1);
-	      $input = explode(',',$input);
-	      foreach($input as &$v)$v=trim($v);
-	      switch($input[0])
-		{
-		case 'IMG':
-		  $line = '<a href="'.$input[1].'"><img alt="'.$input[2].'" src="'.$input[1].'" /></a>';
-		  break;
-		}
-	    }
-	}
-      return implode("\n",$exploded);
+    public static function parseContent(&$content) {
+        $exploded = explode("\n",$content);
+        foreach($exploded as &$line) {
+            if(strpos($line,'$(') == 0) {
+                $input = substr($line,2,-1);
+                $input = explode(',',$input);
+                foreach($input as &$v)$v=trim($v);
+                switch($input[0]) {
+                case 'IMG':
+                    $line = '<a href="'.$input[1].'"><img alt="'.$input[2].'" src="'.$input[1].'" /></a>';
+                    break;
+                }
+            }
+        }
+        return implode("\n",$exploded);
     }
     public function getTitle() {
         return $this->title;
@@ -60,22 +56,19 @@ class Page {
     public function getCategory() {
         return $this->category;
     }
-    public function getContent(){
-      return $this->content;
+    public function getContent() {
+        return $this->content;
     }
-    public function getDescription()
-    {
-      return $this->description;
+    public function getDescription() {
+        return $this->description;
     }
-    public function hasDescription()
-    {
-      return isset($this->description);
+    public function hasDescription() {
+        return isset($this->description);
     }
 
 
-    public static function comparePages($p1,$p2)
-    {
-      return strcmp($p1->getTitle(),$p2->getTitle());
+    public static function comparePages($p1,$p2) {
+        return strcmp($p1->getTitle(),$p2->getTitle());
     }
 }
 

@@ -1,24 +1,32 @@
 <?php
-$config = array(
-		//website title
-              'title' => '',
-	      //website description
-              'description' => '',
-              'author' => '',
-	      //copyright year
-              'year' => '2013',
-	      //list of pages the program should look for under /source directory
-              'pages' => array(
-              )
-          );
+$GLOBALS['CONFIG'] = array(
+			   //website title
+			   'title' => 'Restaurant Simulation v4.1',
+			   
+			   //website description
+			   'description' => 'Design documentation for CSCI-201 restaurant project. Contains high-level interaction diagrams, individual class data, messages, scheduler, and actions.',
 
-/*
-navbar configuration. list your navbar categories in the order you want
-*/
+			   'author' => 'Roy YiWei Zheng',
 
-$NAVBAR_ORDER = array(
+                         //copyright year
+			   'year' => '2013',
 
-		     );
+                         /*
+                         navbar configuration. list your navbar categories in the order you want
+                         */
+			   'navbar' => array(
+					     'Agents',
+					     'Miscellaneous',
+					     ),
+
+			   //output directory
+			   'output' => 'out',
+
+			   //source directory
+			   'input'=>'source',
+			   );
+
+
 
 
 ?>
