@@ -5,7 +5,7 @@ Bootsygen is a simple application design documentatino framework that uses the B
 1. Edit config.php
 2. Write pages and place into source directory
 3. Run command 
-```bash
+```
 php builder.php
 ```
 
