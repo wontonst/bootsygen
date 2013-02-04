@@ -3,6 +3,8 @@ if(!$GLOBALS['CONFIG']['output'])
   throw new Exception('Navbar output directory may not be empty');
 if(!$GLOBALS['CONFIG']['input'])
   throw new Exception('Navbar input directory may not be empty');
+if(!is_dir($GLOBALS['CONFIG']['input']))
+  throw new Exception('Input directory does not exist');
 if(empty($GLOBALS['CONFIG']['navbar']))
   throw new Exception('Navbar order array may not be empty. Please open config.php to edit.');
 $GLOBALS['CONFIG']['pages']=Parser::parseDir($GLOBALS['CONFIG']['input']);

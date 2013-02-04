@@ -4,9 +4,13 @@ require_once('config.php');
 function __autoload($class) {
     require_once(__DIR__.'/lib/' . strtolower($class) . '.php');
 }
-
+try{
 include(__DIR__.'/lib/config.php');
-
+}catch(Exception $e)
+{
+  echo 'Error has occurred checking config.php:'. "\n\t".$e->getMessage()."\n\t".$e->getTraceAsString();
+  exit();
+}
 /*Get fresh Bootstrap build into out/*/
 function move($source,$target = 'out') {
     exec('cp -R '.$source.' '.$target);
