@@ -22,17 +22,15 @@ The page content may contain HTML, javascript, anything. There are also a few ma
 ##Page Macros
 Page macros were created because it's too ugly to have a lot of HTML code in the contents section. Macros are written in the following fashion
 ```php
-my content blah blah blah
 $(MACRONAME,parameter1,parameter2,parameter3)
-more content blah blah blah
 ```
-Note that the macro must be on its own line. There are no limit to the number of parameters, but each macro has its own specified parameters.
+Note that the <b>macro must be on its own line</b>. Each macro has its own specified parameters.
 The list of macros available are listed below.
 
 <table>
 <tr>
 <th>Macro Name</th>
-<th>Parameters</th>
+<th colspan="2">Parameters</th>
 </tr>
 <tr>
 <td>IMG</td>
