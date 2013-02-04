@@ -7,6 +7,8 @@ function move($source,$target = 'out')
 {
 exec('cp -R '.$source.' '.$target);
 }
+if(!is_dir('out'))exec('mkdir out');
+
 require_once('config.php');
 $GLOBALS['logger'] = new Logger('log.out');
 
