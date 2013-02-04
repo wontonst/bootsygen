@@ -59,7 +59,7 @@ class Website {
         foreach($this->pages as $p) {
             ob_start();
             fclose($file);
-            $file = fopen('out/'.$p->getTitle().'.html','w+');
+            $file = fopen($GLOBALS['CONFIG']['output']. '/'.$p->getTitle().'.html','w+');
             $title=$p->getTitle();
             $page = $p->getContent();
             if($p->hasDescription())$page['description']=$p->getDescription();
