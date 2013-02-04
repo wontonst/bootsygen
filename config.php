@@ -15,14 +15,14 @@ $GLOBALS['CONFIG'] = array(
                          navbar configuration. list your navbar categories in the order you want
                          */
 			   'navbar' => array(
-
+'Hey'
 					     ),
 
 			   //output directory
 			   'output' => 'out',
 
 			   //source directory
-			   'input'=>'source',
+			   'input'=>'sample',
 			   );
 
 

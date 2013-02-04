@@ -27,11 +27,7 @@ class Website {
         $website = new Website();
         $website->metadata = $config;
         foreach ($config['pages'] as $v) {
-            $filename = 'source/' . $v . '.txt';
-            if (!file_exists($filename)) {
-                $GLOBALS['logger']->log('FILE DOES NOT EXIST: ' . $filename);
-                continue;
-            }
+            $filename = $config['input'] .'/'. $v . '.txt';
             $file = fopen($filename, 'r');
             $content = fread($file, 1000000000);
 //            var_dump(Parser::parse($content));
@@ -70,6 +66,7 @@ class Website {
         }
     }
     private function createPreviews() {
+      $array=array();
         foreach ($this->pages as $page) {
             if($page->hasDescription())
                 $array[$page->getTitle()]=$page->getDescription();
