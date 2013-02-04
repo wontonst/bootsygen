@@ -7,8 +7,6 @@
             <div class="hero-unit">
                 <h1><?php echo $title;?></h1>
                 <p><?php echo $description;?></p>
-                <p><a class="btn btn-primary btn-large">Learn more &raquo;
-                    </a></p>
             </div>
             <div class="row-fluid">
 
