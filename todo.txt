@@ -1,2 +1,5 @@
+Refactor
 Improve source file parsing
+	-tokenize { then }
+	-tokenize $(
 Submodule bootstrap
