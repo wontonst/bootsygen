@@ -1,4 +1,4 @@
-Bootsygen is a simple application design documentatino framework that uses the Bootstrap front-end framework to display content.
+Bootsygen is a simple application design documentation framework that uses the Bootstrap front-end framework to display content.
 
 #Steps:
 
