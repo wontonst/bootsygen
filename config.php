@@ -22,7 +22,7 @@ $GLOBALS['CONFIG'] = array(
 			   'output' => 'out',
 
 			   //source directory
-			   'input'=>'source',
+			   'input'=>'',
 			   );
 
 
