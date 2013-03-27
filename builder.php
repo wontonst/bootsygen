@@ -38,7 +38,7 @@ $website = Website::create($GLOBALS['CONFIG']);
 //var_dump($website);
 $website->build();
 
-move('res/js');
-move('res/css');
-move('res/img');
+move('res/js',$GLOBALS['CONFIG']['output']);
+move('res/css',$GLOBALS['CONFIG']['output']);
+move('res/img',$GLOBALS['CONFIG']['output']);
 ?>
