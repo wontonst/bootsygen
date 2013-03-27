@@ -6,7 +6,7 @@ Bootsygen is a simple application design documentation framework that melds the 
 #Steps:
 
 1. Create a directory to hold your Markdown and configuration files. All .md files will be parsed in this folder will be parsed.
-2. Write your documentation and save as PageTitle.md. See [Pages][Pages.html] for more details.
+2. Write your documentation and save as PageTitle.md. See [Pages](<Pages.html>) for more details.
 3. While in the directory you created, run command
 ```
 php path/to/builder.php config
