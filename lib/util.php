@@ -53,11 +53,10 @@ CONFIG;
     if(empty($GLOBALS['CONFIG']['pages']))throw new Exception('Source directory is empty.');
   }
   
-  /**
-     sets the ordering of the navbar
+  /*
+     sets the ordering function for the navbar
   */
-  public function orderNavbar(){
-    
+  public static function setNavbarSortFunction(){
     /*Ordering the NavBar*/
     $GLOBALS['CONFIG']['navbarfunction']=function($a,$a2) {
       foreach($GLOBALS['CONFIG']['navbar'] as $v)
@@ -69,7 +68,6 @@ CONFIG;
       return array_search($a,$arr)-array_search($a2,$arr);
     };
   }
-  
 }
 
 ?>

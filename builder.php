@@ -25,7 +25,7 @@ try{
 {
   die( 'Error has occurred checking config.php:'. "\n\t".$e->getMessage()."\n\t".$e->getTraceAsString());
 }
-
+Util::setNavbarSortFunction();
 /*Get fresh Bootstrap build into out/*/
 function move($source,$target = 'out') {
     exec('cp -R '.__DIR__.'/'.$source.' '.$target);
