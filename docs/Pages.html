@@ -65,17 +65,11 @@
                 <div class="span4">
                     <h1>Pages</h1>
                 </div><!--/span-->
-		<div class="row-fluid">
-                <div class="span9">
-                <div class="btn-group">
-                   </div><!--/buttongroup-->
-                </div><!--/span-->
-                </div><!--/row-->
-                <div class="row-fluid">
-                <div class="span9">
+                <div class="row-fluid" style="margin-bottom:15px;">
+                <div class="span10">
                     Pages are the individual pages on your website. You write them yourself and place them in the /source directory.
                 </div><!--/span-->
-                </div><!--/row--><p>Pages are the individual pages on your website. You write them yourself and place them in the /source directory. Each page follows the following format</p>
+                </div><!--/row--><p>Each page follows the following format</p>
 
 <pre>
 #my category (mandatory)
@@ -83,7 +77,7 @@
 content goes here
 </pre>
 
-<p>The category is used to set the <a href="Navbar.html">Navbar</a>, while the description will appear on the main page as a small blurb.</p>
+<p>The category is used to set the <a href="Navbar.html">Navbar</a>, while the description will appear on the main page as a small blurb as well as the top of the page itself.</p>
 
 <p>The page content may contain markdown, HTML, javascript, anything. There are also a few <a href="Macros.html">macros</a> available.
 <b>There are two mandatory sectiontitles: title and category.</b> Title is the page title and category is the category to be listed under on the navbar. Category navbar ordering is set in config.php. There is also the description sectiontitle which will display in index.html as well as the top of the page. The sectiontitle summary may be used in the same fashion as description except it will not be placed on the main page.</p>
@@ -92,12 +86,14 @@ content goes here
     </div><!--/row-->
     <hr />
 
+</div><!--/.fluid-container-->
+
+<div class="row-fluid offset11">
     <footer>
         <p>&copy;
             Roy (wontonst) Zheng 2013</p>
     </footer>
-
-</div><!--/.fluid-container-->
+</div>
 
 <!-- Le javascript
 ================================================== -->

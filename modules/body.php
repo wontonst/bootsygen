@@ -29,10 +29,6 @@ $i++;if($i % 3 == 0)echo '            </div><!--/row-->
 
     <hr />
 
-    <footer>
-        <p>&copy;
-            <?php echo $author.' '.$year;?></p>
-    </footer>
 
 </div><!--/.fluid-container-->
 
