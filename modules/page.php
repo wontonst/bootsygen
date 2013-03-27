@@ -11,11 +11,8 @@
 		<div class="row-fluid">
                 <div class="span9">
                 <div class="btn-group">
-   <?php foreach($page as $k=>$v)
-{
-  if(strtolower($k) != 'summary' && $k && strtoupper($k) != 'DESCRIPTION')
-  echo '<a class="btn" href="#'.$k.'">'.$k.'</a>';
-}?>
+   <?php //need table of contents here 
+?>
                 </div><!--/buttongroup-->
                 </div><!--/span-->
                 </div><!--/row-->

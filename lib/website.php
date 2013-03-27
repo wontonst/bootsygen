@@ -55,7 +55,7 @@ class Website {
             fclose($file);
             $file = fopen($GLOBALS['CONFIG']['output']. '/'.$p->getTitle().'.html','w+');
             $title=$p->getTitle();
-            $page = $p->getContent();
+            $content = $p->getContent();
             if($p->hasDescription())$description=$p->getDescription();
             $navbar = Navbar::create($pages,$title);
             include(__DIR__.'/../modules/page.php');

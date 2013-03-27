@@ -29,11 +29,11 @@ Takes a file name and parses the file.
     $content = fread($file, 1000000000);
 
     $exploded = explode("\n",$content);
-    if($exploded[0][0] != '#')                                               //check for category
+    if($exploded[0][0] != '#')//check for category
       die('Error: Category not found in file '.$filename.' - please make sure line 1 starts with #enterYourCategoryHere');
-    $pagedata['category']=$exploded[0];//!!set page category
+    $pagedata['category']=substr($exploded[0],1);                                                //!!set page category
     if($exploded[1][0] == '#'){
-      $pagedata['description'] = $exploded[1];                               //!!set page description
+      $pagedata['description'] = substr($exploded[1],1);                               //!!set page description
       unset($exploded[1]);
     }
     unset($exploded[0]);
