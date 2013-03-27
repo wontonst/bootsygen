@@ -40,7 +40,7 @@ class Website {
 
     public function build() {
         $file = fopen('out/index.html', 'w+');
-        foreach ($this->metadata as $k => $v) {
+        foreach ($this->metadata as $k => $v) {//this is not pointless - it sets the variables for index.html
             $$k = $v;
         }
         $pages = $this->pages;
@@ -62,6 +62,18 @@ class Website {
             if(!$index=ob_get_clean())throw new Exception('website.php ob_get_clean() has encountered an issue at line '.__LINE__);
             fwrite($file,$index);
         }
+    }
+    private function buildIndex()
+    {
+
+    }
+    private function buildAllPages()
+    {
+
+    }
+    private function buildPage()
+    {
+
     }
     private function createPreviews() {
       $array=array();
