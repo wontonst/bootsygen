@@ -1,6 +1,6 @@
 <?php
 function __autoload($class) {
-    require_once(__DIR__.'/lib/' . strtolower($class) . '.php');
+  require_once(__DIR__.'/lib/' . strtolower($class) . '.php');
 }
 
 
@@ -25,6 +25,7 @@ try{
 {
   die( 'Error has occurred checking config.php:'. "\n\t".$e->getMessage()."\n\t".$e->getTraceAsString());
 }
+
 /*Get fresh Bootstrap build into out/*/
 function move($source,$target = 'out') {
     exec('cp -R '.$source.' '.$target);
