@@ -69,7 +69,7 @@
                 <div class="span10">
                     The flavor of Markdown used may seem unconventional to people, so here are some of the common notations used in this flavor.
                 </div><!--/span-->
-                </div><!--/row--><table>
+                </div><!--/row--><!--<table>
 <thead>
 <th>
 <tr>
@@ -91,6 +91,125 @@ click [here](<example.html> "mydescription")
 </tr>
 </tbody>
 </table>
+-->
+
+<h2>PHRASE EMPHASIS</h2>
+
+<pre>
+*italic*   **bold**
+_italic_   __bold__
+</pre>
+
+<h2>LINKS</h2>
+
+<p>Inline:</p>
+
+<pre>
+An [example](http://url.com/ "Title")
+</pre>
+
+<p>Reference-style labels (titles are optional):
+</pre>
+An <a href="/url/to/img.jpg" title="Title">example</a>. Then, anywhere
+else in the doc, define the link:</p>
+
+<p></pre></p>
+
+<h2>IMAGES</h2>
+
+<p>Inline (titles are optional):
+<img src="/path/img.jpg" alt="alt text" title="Title" />
+Reference-style:
+<img src="/url/to/img.jpg" alt="alt text" title="Title" /></p>
+
+<p>HEADERS
+Setext-style:</p>
+
+<h1>Header 1</h1>
+
+<h2>Header 2</h2>
+
+<p>atx-style (closing #'s are optional):</p>
+
+<h1>Header 1</h1>
+
+<h2>Header 2</h2>
+
+<h6>Header 6</h6>
+
+<p>LISTS
+Ordered, without paragraphs:
+1.  Foo
+2.  Bar
+Unordered, with paragraphs:
+*   A list item.</p>
+
+<pre><code>With multiple paragraphs.
+</code></pre>
+
+<ul>
+<li>Bar
+You can nest them:</li>
+<li>Abacus
+
+<ul>
+<li>ass</li>
+</ul></li>
+<li>Bastard
+
+<ol>
+<li>bitch</li>
+<li>bupkis
+
+<ul>
+<li>BELITTLER</li>
+</ul></li>
+<li>burper</li>
+</ol></li>
+<li>Cunning
+BLOCKQUOTES
+> Email-style angle brackets
+> are used for blockquotes.</li>
+</ul>
+
+<blockquote>
+  <blockquote>
+    <p>And, they can be nested.</p>
+  </blockquote>
+  
+  <h4>Headers in blockquotes</h4>
+  
+  <ul>
+  <li>You can quote a list.</li>
+  <li>Etc.
+  CODE SPANS
+  <code>&lt;code&gt;</code> spans are delimited
+  by backticks.</li>
+  </ul>
+</blockquote>
+
+<p>You can include literal backticks
+like <code>`this`</code>.
+PREFORMATTED CODE BLOCKS
+Indent every line of a code block by at least 4 spaces or 1 tab.
+This is a normal paragraph.</p>
+
+<pre><code>This is a preformatted
+code block.
+</code></pre>
+
+<p>HORIZONTAL RULES</p>
+
+<h2>Three or more dashes or asterisks:</h2>
+
+<hr />
+
+<hr />
+
+<p>MANUAL LINE BREAKS
+End a line with two or more spaces:
+Roses are red,<br />
+Violets are blue.</p>
             </div><!--/row-->
         </div><!--/span-->
     </div><!--/row-->
