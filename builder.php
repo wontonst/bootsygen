@@ -1,9 +1,15 @@
 <?php
-require_once('config.php');
-
 function __autoload($class) {
     require_once(__DIR__.'/lib/' . strtolower($class) . '.php');
 }
+
+
+if(isset($argv[1]) && $argv[1] == 'config')
+  {
+    echo Util::getConfig();
+  }
+
+require_once('config.php');
 try{
 include(__DIR__.'/lib/config.php');
 }catch(Exception $e)
