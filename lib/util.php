@@ -1,9 +1,11 @@
+<?php
+
 class Util{
 
   public static function getConfig()
   {
-$config = <<<<CONFIG
-<?php
+$config = <<<'CONFIG'
+<?
 $GLOBALS['CONFIG'] = array(
 			   //website title
 			   'title' => '',
@@ -67,6 +69,6 @@ $GLOBALS['CONFIG']['navbarfunction']=function($a,$a2) {
 };
   }
 
-
-
 }
+
+?>

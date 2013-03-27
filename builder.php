@@ -7,15 +7,21 @@ function __autoload($class) {
 if(isset($argv[1]) && $argv[1] == 'config')
   {
     echo Util::getConfig();
-  }
+    return;
+  }else{
+  if(!file_exists('config.php'))
+    die('Error: config.php does not exist. Please verify that the config file is present in your working directory, or run 
+    /path/to/builder.php config
+to generate a new config file.
+');
+}
 
 require_once('config.php');
 try{
-include(__DIR__.'/lib/config.php');
+  Util::verifyConfig();
 }catch(Exception $e)
 {
-  echo 'Error has occurred checking config.php:'. "\n\t".$e->getMessage()."\n\t".$e->getTraceAsString();
-  exit();
+  die( 'Error has occurred checking config.php:'. "\n\t".$e->getMessage()."\n\t".$e->getTraceAsString());
 }
 /*Get fresh Bootstrap build into out/*/
 function move($source,$target = 'out') {
