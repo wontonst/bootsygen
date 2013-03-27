@@ -1,5 +1,6 @@
 <?php
-require_once(__DIR__.'/page.php');
+require_once(__DIR__.'/markdown.php');
+
 class Parser {
 
   /*
@@ -33,11 +34,11 @@ Takes a file name and parses the file.
       die('Error: Category not found in file '.$filename.' - please make sure line 1 starts with #enterYourCategoryHere');
     $pagedata['category']=substr($exploded[0],1);                                                //!!set page category
     if($exploded[1] && $exploded[1][0] == '#'){
-      $pagedata['description'] = substr($exploded[1],1);                               //!!set page description
+      $pagedata['description'] = substr($exploded[1],1)  ;                               //!!set page description
       unset($exploded[1]);
     }
     unset($exploded[0]);
-    $pagedata['content']= Markdown::defaultTransform(implode("\n",$exploded));    //!!set page content
+    $pagedata['content']= Markdown(implode("\n",$exploded));    //!!set page content
     return Page::create($pagedata);
   }
     public static function parseDir(&$dirpath) {

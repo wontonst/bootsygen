@@ -1,65 +1,232 @@
 <?php
 #
-# Markdown  -  A text-to-HTML conversion tool for web writers
+# Markdown Extra  -  A text-to-HTML conversion tool for web writers
 #
-# PHP Markdown  
+# PHP Markdown & Extra  
 # Copyright (c) 2004-2013 Michel Fortin  
-# <http://michelf.com/projects/php-markdown/>
+# <http://michelf.ca/projects/php-markdown/>
 #
 # Original Markdown  
 # Copyright (c) 2004-2006 John Gruber  
 # <http://daringfireball.net/projects/markdown/>
 #
 
+
+define( 'MARKDOWN_VERSION',  "1.0.1p" ); # Sun 13 Jan 2013
+define( 'MARKDOWNEXTRA_VERSION',  "1.2.6" ); # Sun 13 Jan 2013
+
+
 #
-# The following two constants are deprecated: avoid using them, they'll
-# disappear when the Lib branch becomes the only one to be updated.
-#
-# You can get the parser's version using the constant inside of the parser
-# class: \Michelf\Markdown::MARKDOWNLIB_VERSION.
+# Global default settings:
 #
 
-const  MARKDOWN_VERSION  =  "1.0.1p";  # Sun 13 Jan 2013
-const  MARKDOWNEXTRA_VERSION  =  "1.2.6";  # Sun 13 Jan 2013
+# Change to ">" for HTML output
+@define( 'MARKDOWN_EMPTY_ELEMENT_SUFFIX',  " />");
+
+# Define the width of a tab for code blocks.
+@define( 'MARKDOWN_TAB_WIDTH',     4 );
+
+# Optional title attribute for footnote links and backlinks.
+@define( 'MARKDOWN_FN_LINK_TITLE',         "" );
+@define( 'MARKDOWN_FN_BACKLINK_TITLE',     "" );
+
+# Optional class attribute for footnote links and backlinks.
+@define( 'MARKDOWN_FN_LINK_CLASS',         "" );
+@define( 'MARKDOWN_FN_BACKLINK_CLASS',     "" );
+
+# Optional class prefix for fenced code block.
+@define( 'MARKDOWN_CODE_CLASS_PREFIX',     "" );
+
+# Class attribute for code blocks goes on the `code` tag;
+# setting this to true will put attributes on the `pre` tag instead.
+@define( 'MARKDOWN_CODE_ATTR_ON_PRE',   false );
+
+
+#
+# WordPress settings:
+#
+
+# Change to false to remove Markdown from posts and/or comments.
+@define( 'MARKDOWN_WP_POSTS',      true );
+@define( 'MARKDOWN_WP_COMMENTS',   true );
+
+
+
+### Standard Function Interface ###
+
+@define( 'MARKDOWN_PARSER_CLASS',  'MarkdownExtra_Parser' );
+
+function Markdown($text) {
+#
+# Initialize the parser and return the result of its transform method.
+#
+	# Setup static parser variable.
+	static $parser;
+	if (!isset($parser)) {
+		$parser_class = MARKDOWN_PARSER_CLASS;
+		$parser = new $parser_class;
+	}
+
+	# Transform text using parser.
+	return $parser->transform($text);
+}
+
+
+### WordPress Plugin Interface ###
+
+/*
+Plugin Name: Markdown Extra
+Plugin Name: Markdown
+Plugin URI: http://michelf.ca/projects/php-markdown/
+Description: <a href="http://daringfireball.net/projects/markdown/syntax">Markdown syntax</a> allows you to write using an easy-to-read, easy-to-write plain text format. Based on the original Perl version by <a href="http://daringfireball.net/">John Gruber</a>. <a href="http://michelf.ca/projects/php-markdown/">More...</a>
+Version: 1.2.6
+Author: Michel Fortin
+Author URI: http://michelf.ca/
+*/
+
+if (isset($wp_version)) {
+	# More details about how it works here:
+	# <http://michelf.ca/weblog/2005/wordpress-text-flow-vs-markdown/>
+	
+	# Post content and excerpts
+	# - Remove WordPress paragraph generator.
+	# - Run Markdown on excerpt, then remove all tags.
+	# - Add paragraph tag around the excerpt, but remove it for the excerpt rss.
+	if (MARKDOWN_WP_POSTS) {
+		remove_filter('the_content',     'wpautop');
+        remove_filter('the_content_rss', 'wpautop');
+		remove_filter('the_excerpt',     'wpautop');
+		add_filter('the_content',     'mdwp_MarkdownPost', 6);
+        add_filter('the_content_rss', 'mdwp_MarkdownPost', 6);
+		add_filter('get_the_excerpt', 'mdwp_MarkdownPost', 6);
+		add_filter('get_the_excerpt', 'trim', 7);
+		add_filter('the_excerpt',     'mdwp_add_p');
+		add_filter('the_excerpt_rss', 'mdwp_strip_p');
+		
+		remove_filter('content_save_pre',  'balanceTags', 50);
+		remove_filter('excerpt_save_pre',  'balanceTags', 50);
+		add_filter('the_content',  	  'balanceTags', 50);
+		add_filter('get_the_excerpt', 'balanceTags', 9);
+	}
+	
+	# Add a footnote id prefix to posts when inside a loop.
+	function mdwp_MarkdownPost($text) {
+		static $parser;
+		if (!$parser) {
+			$parser_class = MARKDOWN_PARSER_CLASS;
+			$parser = new $parser_class;
+		}
+		if (is_single() || is_page() || is_feed()) {
+			$parser->fn_id_prefix = "";
+		} else {
+			$parser->fn_id_prefix = get_the_ID() . ".";
+		}
+		return $parser->transform($text);
+	}
+	
+	# Comments
+	# - Remove WordPress paragraph generator.
+	# - Remove WordPress auto-link generator.
+	# - Scramble important tags before passing them to the kses filter.
+	# - Run Markdown on excerpt then remove paragraph tags.
+	if (MARKDOWN_WP_COMMENTS) {
+		remove_filter('comment_text', 'wpautop', 30);
+		remove_filter('comment_text', 'make_clickable');
+		add_filter('pre_comment_content', 'Markdown', 6);
+		add_filter('pre_comment_content', 'mdwp_hide_tags', 8);
+		add_filter('pre_comment_content', 'mdwp_show_tags', 12);
+		add_filter('get_comment_text',    'Markdown', 6);
+		add_filter('get_comment_excerpt', 'Markdown', 6);
+		add_filter('get_comment_excerpt', 'mdwp_strip_p', 7);
+	
+		global $mdwp_hidden_tags, $mdwp_placeholders;
+		$mdwp_hidden_tags = explode(' ',
+			'<p> </p> <pre> </pre> <ol> </ol> <ul> </ul> <li> </li>');
+		$mdwp_placeholders = explode(' ', str_rot13(
+			'pEj07ZbbBZ U1kqgh4w4p pre2zmeN6K QTi31t9pre ol0MP1jzJR '.
+			'ML5IjmbRol ulANi1NsGY J7zRLJqPul liA8ctl16T K9nhooUHli'));
+	}
+	
+	function mdwp_add_p($text) {
+		if (!preg_match('{^$|^<(p|ul|ol|dl|pre|blockquote)>}i', $text)) {
+			$text = '<p>'.$text.'</p>';
+			$text = preg_replace('{\n{2,}}', "</p>\n\n<p>", $text);
+		}
+		return $text;
+	}
+	
+	function mdwp_strip_p($t) { return preg_replace('{</?p>}i', '', $t); }
+
+	function mdwp_hide_tags($text) {
+		global $mdwp_hidden_tags, $mdwp_placeholders;
+		return str_replace($mdwp_hidden_tags, $mdwp_placeholders, $text);
+	}
+	function mdwp_show_tags($text) {
+		global $mdwp_hidden_tags, $mdwp_placeholders;
+		return str_replace($mdwp_placeholders, $mdwp_hidden_tags, $text);
+	}
+}
+
+
+### bBlog Plugin Info ###
+
+function identify_modifier_markdown() {
+	return array(
+		'name' => 'markdown',
+		'type' => 'modifier',
+		'nicename' => 'PHP Markdown Extra',
+		'description' => 'A text-to-HTML conversion tool for web writers',
+		'authors' => 'Michel Fortin and John Gruber',
+		'licence' => 'GPL',
+		'version' => MARKDOWNEXTRA_VERSION,
+		'help' => '<a href="http://daringfireball.net/projects/markdown/syntax">Markdown syntax</a> allows you to write using an easy-to-read, easy-to-write plain text format. Based on the original Perl version by <a href="http://daringfireball.net/">John Gruber</a>. <a href="http://michelf.ca/projects/php-markdown/">More...</a>',
+		);
+}
+
+
+### Smarty Modifier Interface ###
+
+function smarty_modifier_markdown($text) {
+	return Markdown($text);
+}
+
+
+### Textile Compatibility Mode ###
+
+# Rename this file to "classTextile.php" and it can replace Textile everywhere.
+
+if (strcasecmp(substr(__FILE__, -16), "classTextile.php") == 0) {
+	# Try to include PHP SmartyPants. Should be in the same directory.
+	@include_once 'smartypants.php';
+	# Fake Textile class. It calls Markdown instead.
+	class Textile {
+		function TextileThis($text, $lite='', $encode='') {
+			if ($lite == '' && $encode == '')    $text = Markdown($text);
+			if (function_exists('SmartyPants'))  $text = SmartyPants($text);
+			return $text;
+		}
+		# Fake restricted version: restrictions are not supported for now.
+		function TextileRestricted($text, $lite='', $noimage='') {
+			return $this->TextileThis($text, $lite);
+		}
+		# Workaround to ensure compatibility with TextPattern 4.0.3.
+		function blockLite($text) { return $text; }
+	}
+}
+
 
 
 #
 # Markdown Parser Class
 #
 
-class Markdown {
-
-	### Version ###
-
-	const  MARKDOWNLIB_VERSION  =  "1.3-beta4";
-
-	### Simple Function Interface ###
-
-	static function defaultTransform($text) {
-	#
-	# Initialize the parser and return the result of its transform method.
-	# This will work fine for derived classes too.
-	#
-		# Take parser class on which this function was called.
-		$parser_class = \get_called_class();
-
-		# try to take parser from the static parser list
-		static $parser_list;
-		$parser =& $parser_list[$parser_class];
-
-		# create the parser it not already set
-		if (!$parser)
-			$parser = new $parser_class;
-
-		# Transform text using parser.
-		return $parser->transform($text);
-	}
+class Markdown_Parser {
 
 	### Configuration Variables ###
 
 	# Change to ">" for HTML output.
-	var $empty_element_suffix = " />";
-	var $tab_width = 4;
+	var $empty_element_suffix = MARKDOWN_EMPTY_ELEMENT_SUFFIX;
+	var $tab_width = MARKDOWN_TAB_WIDTH;
 	
 	# Change to `true` to disallow markup or entities.
 	var $no_markup = false;
@@ -85,7 +252,7 @@ class Markdown {
 	var $escape_chars_re;
 
 
-	function __construct() {
+	function Markdown_Parser() {
 	#
 	# Constructor function. Initialize appropriate member variables.
 	#
@@ -1523,18 +1690,10 @@ class Markdown {
 
 
 #
-# Temporary Markdown Extra Parser Implementation Class
-#
-# NOTE: DON'T USE THIS CLASS
-# Currently the implementation of of Extra resides here in this temporary class.
-# This makes it easier to propagate the changes between the three different
-# packaging styles of PHP Markdown. When this issue is resolved, this
-# MarkdownExtra_TmpImpl class here will disappear and \Michelf\MarkdownExtra
-# will contain the code. So please use \Michelf\MarkdownExtra and ignore this
-# one.
+# Markdown Extra Parser Class
 #
 
-class _MarkdownExtra_TmpImpl extends Markdown {
+class MarkdownExtra_Parser extends Markdown_Parser {
 
 	### Configuration Variables ###
 
@@ -1542,18 +1701,18 @@ class _MarkdownExtra_TmpImpl extends Markdown {
 	var $fn_id_prefix = "";
 	
 	# Optional title attribute for footnote links and backlinks.
-	var $fn_link_title = "";
-	var $fn_backlink_title = "";
+	var $fn_link_title = MARKDOWN_FN_LINK_TITLE;
+	var $fn_backlink_title = MARKDOWN_FN_BACKLINK_TITLE;
 	
 	# Optional class attribute for footnote links and backlinks.
-	var $fn_link_class = "footnote-ref";
-	var $fn_backlink_class = "footnote-backref";
+	var $fn_link_class = MARKDOWN_FN_LINK_CLASS;
+	var $fn_backlink_class = MARKDOWN_FN_BACKLINK_CLASS;
 
 	# Optional class prefix for fenced code block.
-	var $code_class_prefix = "";
+	var $code_class_prefix = MARKDOWN_CODE_CLASS_PREFIX;
 	# Class attribute for code blocks goes on the `code` tag;
 	# setting this to true will put attributes on the `pre` tag instead.
-	var $code_attr_on_pre = false;
+	var $code_attr_on_pre = MARKDOWN_CODE_ATTR_ON_PRE;
 	
 	# Predefined abbreviations.
 	var $predef_abbr = array();
@@ -1561,7 +1720,7 @@ class _MarkdownExtra_TmpImpl extends Markdown {
 
 	### Parser Implementation ###
 
-	function __construct() {
+	function MarkdownExtra_Parser() {
 	#
 	# Constructor function. Initialize the parser object.
 	#
@@ -1587,7 +1746,7 @@ class _MarkdownExtra_TmpImpl extends Markdown {
 			"doAbbreviations"    => 70,
 			);
 		
-		parent::__construct();
+		parent::Markdown_Parser();
 	}
 	
 	
@@ -1657,7 +1816,7 @@ class _MarkdownExtra_TmpImpl extends Markdown {
 		if (empty($attr)) return "";
 		
 		# Split on components
-		preg_match_all('/[#.][-_:a-zA-Z0-9]+/', $attr, $matches);
+		preg_match_all("/[.#][-_:a-zA-Z0-9]+/", $attr, $matches);
 		$elements = $matches[0];
 
 		# handle classes and ids (only first id taken into account)
@@ -1809,7 +1968,7 @@ class _MarkdownExtra_TmpImpl extends Markdown {
 					[ ]{0,'.($indent+3).'}~{3,}
 									[ ]*
 					(?:
-					\.?[-_:a-zA-Z0-9]+ # standalone class name
+						[.]?[-_:a-zA-Z0-9]+ # standalone class name
 					|
 						'.$this->id_class_attr_nocatch_re.' # extra attributes
 					)?
@@ -2405,7 +2564,7 @@ class _MarkdownExtra_TmpImpl extends Markdown {
 			(?>\A\n?|\n\n+)					# leading line
 			(								# definition terms = $1
 				[ ]{0,'.$less_than_tab.'}	# leading whitespace
-				(?!\:[ ]|[ ])				# negative lookahead for a definition
+				(?![:][ ]|[ ])				# negative lookahead for a definition 
 											#   mark (colon) or more whitespace.
 				(?> \S.* \n)+?				# actual term (not whitespace).	
 			)			
@@ -2419,12 +2578,12 @@ class _MarkdownExtra_TmpImpl extends Markdown {
 			\n(\n+)?						# leading line = $1
 			(								# marker space = $2
 				[ ]{0,'.$less_than_tab.'}	# whitespace before colon
-				\:[ ]+						# definition mark (colon)
+				[:][ ]+						# definition mark (colon)
 			)
 			((?s:.+?))						# definition text = $3
 			(?= \n+ 						# stop at next definition mark,
 				(?:							# next term or end of text
-					[ ]{0,'.$less_than_tab.'} \:[ ]	|
+					[ ]{0,'.$less_than_tab.'} [:][ ]	|
 					<dt> | \z
 				)						
 			)					
@@ -2480,7 +2639,7 @@ class _MarkdownExtra_TmpImpl extends Markdown {
 				)
 				[ ]*
 				(?:
-					\.?([-_:a-zA-Z0-9]+) # 2: standalone class name
+					[.]?([-_:a-zA-Z0-9]+) # 2: standalone class name
 				|
 					'.$this->id_class_attr_catch_re.' # 3: Extra attributes
 				)?
@@ -2715,6 +2874,7 @@ class _MarkdownExtra_TmpImpl extends Markdown {
 				$ref_count_mark = $this->footnotes_ref_count[$node_id] += 1;
 			}
 			
+			$attr = " rel=\"footnote\"";
 			if ($this->fn_link_class != "") {
 				$class = $this->fn_link_class;
 				$class = $this->encodeAttribute($class);
@@ -2801,4 +2961,90 @@ class _MarkdownExtra_TmpImpl extends Markdown {
 }
 
 
+/*
+
+PHP Markdown Extra
+==================
+
+Description
+-----------
+
+This is a PHP port of the original Markdown formatter written in Perl 
+by John Gruber. This special "Extra" version of PHP Markdown features 
+further enhancements to the syntax for making additional constructs 
+such as tables and definition list.
+
+Markdown is a text-to-HTML filter; it translates an easy-to-read /
+easy-to-write structured text format into HTML. Markdown's text format
+is mostly similar to that of plain text email, and supports features such
+as headers, *emphasis*, code blocks, blockquotes, and links.
+
+Markdown's syntax is designed not as a generic markup language, but
+specifically to serve as a front-end to (X)HTML. You can use span-level
+HTML tags anywhere in a Markdown document, and you can use block level
+HTML tags (like <div> and <table> as well).
+
+For more information about Markdown's syntax, see:
+
+<http://daringfireball.net/projects/markdown/>
+
+
+Bugs
+----
+
+To file bug reports please send email to:
+
+<michel.fortin@michelf.ca>
+
+Please include with your report: (1) the example input; (2) the output you
+expected; (3) the output Markdown actually produced.
+
+
+Version History
+--------------- 
+
+See the readme file for detailed release notes for this version.
+
+
+Copyright and License
+---------------------
+
+PHP Markdown & Extra
+Copyright (c) 2004-2013 Michel Fortin
+<http://michelf.ca/>  
+All rights reserved.
+
+Based on Markdown  
+Copyright (c) 2003-2006 John Gruber   
+<http://daringfireball.net/>   
+All rights reserved.
+
+Redistribution and use in source and binary forms, with or without
+modification, are permitted provided that the following conditions are
+met:
+
+*	Redistributions of source code must retain the above copyright notice,
+	this list of conditions and the following disclaimer.
+
+*	Redistributions in binary form must reproduce the above copyright
+	notice, this list of conditions and the following disclaimer in the
+	documentation and/or other materials provided with the distribution.
+
+*	Neither the name "Markdown" nor the names of its contributors may
+	be used to endorse or promote products derived from this software
+	without specific prior written permission.
+
+This software is provided by the copyright holders and contributors "as
+is" and any express or implied warranties, including, but not limited
+to, the implied warranties of merchantability and fitness for a
+particular purpose are disclaimed. In no event shall the copyright owner
+or contributors be liable for any direct, indirect, incidental, special,
+exemplary, or consequential damages (including, but not limited to,
+procurement of substitute goods or services; loss of use, data, or
+profits; or business interruption) however caused and on any theory of
+liability, whether in contract, strict liability, or tort (including
+negligence or otherwise) arising in any way out of the use of this
+software, even if advised of the possibility of such damage.
+
+*/
 ?>
