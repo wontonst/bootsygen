@@ -2,10 +2,12 @@
 #Pages are the individual pages on your website. You write them yourself and place them in the /source directory.
 
 Pages are the individual pages on your website. You write them yourself and place them in the /source directory. Each page follows the following format
-```php
-#my category (mandatory)
-#my description (optional)
-```
+<pre>
+\#my category (mandatory)
+\#my description (optional)
+content goes here
+</pre>
+
 The category is used to set the [Navbar], while the description will appear on the main page as a small blurb.
 
 The page content may contain markdown, HTML, javascript, anything. There are also a few [macros|Macros] available.

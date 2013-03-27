@@ -1,8 +1,10 @@
-##Page Macros
+#Macros
+
 Page macros were created because it's too ugly to have a lot of HTML code in the contents section. Macros are written in the following fashion
-```php
+```
 $(MACRONAME,parameter1,parameter2,parameter3)
 ```
+
 Note that the <b>macro must be on its own line</b>. Each macro has its own specified parameters.
 The list of macros available are listed below.
 
