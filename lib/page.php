@@ -5,7 +5,7 @@ class Page {
     private $title; ///<page title
     private $description; ///<page description
     private $category;///<page category on navbar
-    private $content; ///<array of pages header=>content
+    private $content; ///<HTML of page content
 
     private function __construct() {
 
@@ -28,8 +28,11 @@ class Page {
             case 'CATEGORY':
                 $page->category=$v;
                 break;
+	    case 'CONTENT':
+	      $page->content = $v;
+	      break;
             default:
-                $page->content[$k] = $v;
+	      die('Page: invalid array passed to constructor: key '.$k.' is not a valid page data.');
             }
         }
         return $page;

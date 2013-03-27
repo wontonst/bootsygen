@@ -28,16 +28,14 @@ class Website {
         $website->metadata = $config;
         foreach ($config['pages'] as $v) {
             $filename = $config['input'] .'/'. $v . '.md';
-            $file = fopen($filename, 'r');
-            $content = fread($file, 1000000000);
-//            var_dump(Parser::parse($content));
-            $website->add(Parser::parse($content));
+            $website->add(Parser::parse($filename));
         }
         return $website;
     }
 
     public function add(&$page) {
         $this->pages[] = $page;
+	//	var_dump($page);
     }
 
     public function build() {
