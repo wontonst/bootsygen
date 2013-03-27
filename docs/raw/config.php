@@ -20,7 +20,7 @@
 						   ),
 				 
 				 //output directory
-				 'output' => 'out',
+				 'output' => '..',
 				 
 				 //source directory
 				 'input'=>'.',
