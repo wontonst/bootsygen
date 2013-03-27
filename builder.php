@@ -28,7 +28,7 @@ try{
 
 /*Get fresh Bootstrap build into out/*/
 function move($source,$target = 'out') {
-    exec('cp -R '.$source.' '.$target);
+    exec('cp -R '.__DIR__.'/'.$source.' '.$target);
 }
 if(!is_dir($GLOBALS['CONFIG']['output']))exec('mkdir '.$GLOBALS['CONFIG']['output']);//make out folder
 

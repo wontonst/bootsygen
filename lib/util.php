@@ -30,10 +30,10 @@ class Util{
 				 'output' => 'out',
 				 
 				 //source directory
-				 'input'=>'',
+				 'input'=>'.',
 				 );
     ?>
-    CONFIG;
+CONFIG;
     return $config;
   }
   

@@ -27,7 +27,7 @@ class Website {
         $website = new Website();
         $website->metadata = $config;
         foreach ($config['pages'] as $v) {
-            $filename = $config['input'] .'/'. $v . '.txt';
+            $filename = $config['input'] .'/'. $v . '.md';
             $file = fopen($filename, 'r');
             $content = fread($file, 1000000000);
 //            var_dump(Parser::parse($content));
