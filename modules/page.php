@@ -20,25 +20,15 @@
                 </div><!--/span-->
                 </div><!--/row-->
                 <?php
-		    if(isset($page['description']))
+		    if(isset($description))
 		      {
 echo '<div class="row-fluid">
                 <div class="span9">
-                    ' . $page['description'] . '
+                    ' . $description . '
                 </div><!--/span-->
                 </div><!--/row-->';
-unset($page['description']);
 		      }
-		    if(isset($page['summary']))
-		      {
-echo '<div class="row-fluid">
-                <div class="span9">
-                    ' . $page['summary'] . '
-                </div><!--/span-->
-                </div><!--/row-->';
-unset($page['summary']);
-		      }
-
+/*
                 foreach ($page as $k => $v) {
 		  if(!$k)break;
                     echo '<div class="row-fluid">
@@ -47,7 +37,8 @@ unset($page['summary']);
                     ' . $v . '
                 </div><!--/span-->
                 </div><!--/row-->';
-                }
+                }*/
+echo $content;
                 ?>
             </div><!--/row-->
         </div><!--/span-->

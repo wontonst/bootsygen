@@ -56,7 +56,7 @@ class Website {
             $file = fopen($GLOBALS['CONFIG']['output']. '/'.$p->getTitle().'.html','w+');
             $title=$p->getTitle();
             $page = $p->getContent();
-            if($p->hasDescription())$page['description']=$p->getDescription();
+            if($p->hasDescription())$description=$p->getDescription();
             $navbar = Navbar::create($pages,$title);
             include(__DIR__.'/../modules/page.php');
             if(!$index=ob_get_clean())throw new Exception('website.php ob_get_clean() has encountered an issue at line '.__LINE__);
