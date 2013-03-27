@@ -22,7 +22,8 @@ $GLOBALS['CONFIG'] = array(
                          navbar configuration. list your navbar categories in the order you want
                          */
 			   'navbar' => array(
-'Hey'
+					     'Category1',
+					     'Category2',//replace these with your own category
 					     ),
 
 			   //output directory

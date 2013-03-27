@@ -6,7 +6,9 @@ function __autoload($class) {
 
 if(isset($argv[1]) && $argv[1] == 'config')
   {
-    echo Util::getConfig();
+    $config =  Util::getConfig();
+    $f = fopen('config.php','w+');
+    fwrite($f,$config);
     return;
   }else{
   if(!file_exists('config.php'))
