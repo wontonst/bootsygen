@@ -1,6 +1,7 @@
 #Macros
+#Page macros were created because it's too ugly to have a lot of HTML code in the contents section. 
 
-Page macros were created because it's too ugly to have a lot of HTML code in the contents section. Macros are written in the following fashion
+Macros are written in the following fashion
 ```
 $(MACRONAME,parameter1,parameter2,parameter3)
 ```

@@ -102,114 +102,138 @@ _italic_   __bold__
 
 <h2>LINKS</h2>
 
-<p>Inline:</p>
-
-<pre>
-An [example](http://url.com/ "Title")
-</pre>
-
-<p>Reference-style labels (titles are optional):
-</pre>
-An <a href="/url/to/img.jpg" title="Title">example</a>. Then, anywhere
+<p>Inline:
+An <code>[example](http://url.com/ "Title")</code><br />
+Reference-style labels (titles are optional):<br />
+An <code>[example][id]</code>. Then, anywhere
 else in the doc, define the link:</p>
 
-<p></pre></p>
+<pre>
+[id]: http://example.com/  "Title"
+</pre>
 
 <h2>IMAGES</h2>
 
-<p>Inline (titles are optional):
-<img src="/path/img.jpg" alt="alt text" title="Title" />
-Reference-style:
-<img src="/url/to/img.jpg" alt="alt text" title="Title" /></p>
+<p>Inline (titles are optional):</p>
+
+<pre>
+![alt text](/path/img.jpg "Title")
+</pre>
+
+<p>Reference-style:</p>
+
+<pre>
+![alt text][id]
+
+[id]: /url/to/img.jpg "Title"
+</pre>
 
 <p>HEADERS
 Setext-style:</p>
 
-<h1>Header 1</h1>
+<pre>
+Header 1
+========
 
-<h2>Header 2</h2>
+Header 2
+--------
+</pre>
 
 <p>atx-style (closing #'s are optional):</p>
 
-<h1>Header 1</h1>
+<pre>
+# Header 1 #
 
-<h2>Header 2</h2>
+## Header 2 ##
 
-<h6>Header 6</h6>
+###### Header 6
+</pre>
 
-<p>LISTS
+<p>LISTS</p>
+
+<pre>
 Ordered, without paragraphs:
 1.  Foo
 2.  Bar
-Unordered, with paragraphs:
-*   A list item.</p>
+</pre>
 
-<pre><code>With multiple paragraphs.
-</code></pre>
+<p>Unordered, with paragraphs:</p>
 
-<ul>
-<li>Bar
-You can nest them:</li>
-<li>Abacus
+<pre>
+*   A list item.
 
-<ul>
-<li>ass</li>
-</ul></li>
-<li>Bastard
+    With multiple paragraphs.
 
-<ol>
-<li>bitch</li>
-<li>bupkis
+*   Bar
+</pre>
 
-<ul>
-<li>BELITTLER</li>
-</ul></li>
-<li>burper</li>
-</ol></li>
-<li>Cunning
-BLOCKQUOTES
+<p>You can nest them:</p>
+
+<pre>
+*   Abacus
+    * aim
+*   Botter
+    1.  bitcoins
+    2.  bollocks
+        * BENIGN
+    3. trollface
+*   Catcher Freeman
+</pre>
+
+<p>BLOCKQUOTES</p>
+
+<pre>
 > Email-style angle brackets
-> are used for blockquotes.</li>
-</ul>
+> are used for blockquotes.
 
-<blockquote>
-  <blockquote>
-    <p>And, they can be nested.</p>
-  </blockquote>
-  
-  <h4>Headers in blockquotes</h4>
-  
-  <ul>
-  <li>You can quote a list.</li>
-  <li>Etc.
-  CODE SPANS
-  <code>&lt;code&gt;</code> spans are delimited
-  by backticks.</li>
-  </ul>
-</blockquote>
+> > And, they can be nested.
+
+> #### Headers in blockquotes
+> 
+> * You can quote a list.
+> * Etc.
+</pre>
+
+<p>CODE SPANS</p>
+
+<pre>`<code>`</pre>
+
+<p>spans are delimited by backticks.</p>
 
 <p>You can include literal backticks
-like <code>`this`</code>.
+like</p>
+
+<pre>`` `this` ``</pre>
+
+<p>.
 PREFORMATTED CODE BLOCKS
-Indent every line of a code block by at least 4 spaces or 1 tab.
-This is a normal paragraph.</p>
+Indent every line of a code block by at least 4 spaces or 1 tab.</p>
 
-<pre><code>This is a preformatted
-code block.
-</code></pre>
+<pre>
+This is a normal paragraph.
 
-<p>HORIZONTAL RULES</p>
+    This is a preformatted
+    code block.
+</pre>
 
-<h2>Three or more dashes or asterisks:</h2>
+<p>HORIZONTAL RULES
+Three or more dashes or asterisks:-</p>
 
-<hr />
+<pre>
+--
 
-<hr />
+* * *
+
+- - - -
+</pre>
 
 <p>MANUAL LINE BREAKS
-End a line with two or more spaces:
-Roses are red,<br />
-Violets are blue.</p>
+End a line with two or more spaces:</p>
+
+<pre>
+Roses are red,   
+Violets are blue.
+</pre>
             </div><!--/row-->
         </div><!--/span-->
     </div><!--/row-->
