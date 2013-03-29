@@ -1,7 +1,7 @@
 <div class="row-fluid offset11">
     <footer>
         <p>&copy;
-            <?php echo $author.' '.$year;?></p>
+<?php echo $author.' '.$year;?><br />page generated using <a href="http://github.com/wontonst/bootsygen">Bootsygen</a>, an open-source documentation framework.</p>
     </footer>
 </div>
 
