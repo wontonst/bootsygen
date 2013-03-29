@@ -16,7 +16,7 @@ foreach($previews as $k=>$p){
 echo'                <div class="span4">
                     <h2>'.$k.'</h2>
                     <p>'.$p.'</p>
-                    <p><a class="btn" href="'.$k.'.html">View details &raquo;
+                    <p><a class="btn" href="'.str_replace(' ','%20',$k).'.html">View details &raquo;
                         </a></p>
                 </div><!--/span-->';
 $i++;if($i % 3 == 0)echo '            </div><!--/row-->

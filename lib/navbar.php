@@ -37,7 +37,7 @@ class Navbar {
             }
             uasort($toprint,'Page::comparePages');
             foreach($toprint as $p) {
-                $out.='<li ' . ($highlight == $p->getTitle() ? 'class="active"' : '') . '><a href = "' . $p->getTitle() . '.html">' . $p->getTitle() . '</a></li>' . "\n";
+	      $out.='<li ' . ($highlight == $p->getTitle() ? 'class="active"' : '') . '><a href="' . str_replace(' ','%20',$p->getTitle()) . '.html">' . $p->getTitle() . '</a></li>' . "\n";
 
             }
         }
