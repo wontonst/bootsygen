@@ -17,7 +17,6 @@ class Page {
     public static function create($info) {
         $page = new Page();
         foreach ($info as $k => $v) {
-            $v = Page::parseContent($v);
             switch (strtoupper($k)) {
             case 'TITLE':
                 $page->title = $v;
@@ -36,22 +35,6 @@ class Page {
             }
         }
         return $page;
-    }
-    public static function parseContent(&$content) {
-        $exploded = explode("\n",$content);
-        foreach($exploded as &$line) {
-            if(strpos($line,'$(') == 0) {
-                $input = substr($line,2,-1);
-                $input = explode(',',$input);
-                foreach($input as &$v)$v=trim($v);
-                switch($input[0]) {
-                case 'IMG':
-                    $line = '<a href="'.$input[1].'"><img alt="'.$input[2].'" src="'.$input[1].'" /></a>';
-                    break;
-                }
-            }
-        }
-        return implode("\n",$exploded);
     }
     public function getTitle() {
         return $this->title;
