@@ -5,7 +5,7 @@
         ?>
         <div class="span9">
             <div class="row-fluid">
-                <div class="span4">
+                <div class="span8">
                     <h1><?php echo $title; ?></h1>
                 </div><!--/span-->
 <?php /*
