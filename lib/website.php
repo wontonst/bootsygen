@@ -76,7 +76,7 @@ builds a single page (outputs to file)
             $file = fopen($GLOBALS['CONFIG']['output']. '/'.$p->getTitle().'.html','w+');
             $title=$p->getTitle();
             $content = $p->getContent();
-            if($p->hasDescription())$description=$p->getDescription();
+            $description=($p->hasDescription())?$p->getDescription():'';
             $navbar = Navbar::create($this->pages,$title);
             include(__DIR__.'/../modules/page.php');
             if(!$index=ob_get_clean())throw new Exception('website.php ob_get_clean() has encountered an issue at line '.__LINE__);
