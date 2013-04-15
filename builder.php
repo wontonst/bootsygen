@@ -1,4 +1,6 @@
 <?php
+//ini_set('memory_limit','256M');
+
 function __autoload($class) {
   require_once(__DIR__.'/lib/' . strtolower($class) . '.php');
 }
@@ -36,6 +38,7 @@ $GLOBALS['logger'] = new Logger('log.out');
 
 $website = Website::create($GLOBALS['CONFIG']);
 //var_dump($website);
+
 $website->build();
 
 move('res/js',$GLOBALS['CONFIG']['output']);

@@ -21,13 +21,14 @@ Takes a file name and parses the file.
    */
   public static function parse($filename)
   {
+
     $pagedata = array();                                                     //!! array to be sent to Page object constructor
 
     $file=explode('/',$filename);
     $pagedata['title'] = substr(end($file),0,-3);                                         //!!set page title
 
     $file = fopen($filename, 'r');
-    $content = fread($file, 1000000000);
+    $content = fread($file,filesize($filename));
 
     $exploded = explode("\n",$content);
 
@@ -55,6 +56,9 @@ Takes a file name and parses the file.
     }
     unset($exploded[0]);
     $pagedata['content']= Markdown(implode("\n",$exploded));    //!!set page content
+
+    //      ini_set('memory_limit','1MB');
+
     return Page::create($pagedata);
   }
     public static function parseDir(&$dirpath) {
