@@ -20,6 +20,7 @@ class MarkdownWrapper {
                 $treturn .= $line;
             }
             exec('rm -f BOOTSYGEN_TMP_');
+return $treturn;
         }
     }
 
@@ -30,7 +31,7 @@ class MarkdownWrapper {
             $GLOBALS['logger']->log('Using built-in Markdown parser.');
         } else {
             MarkdownWrapper::$using_php = false;
-            $versraw = exec('markdown --version');
+            exec('markdown --version',$versraw);
             $version = 'VERSION NOT DETECTED';
             foreach ($versraw as $line) {
                 if (strpos(strtolower($line), 'version')) {
