@@ -5,8 +5,8 @@ class Bootsygen {
     /**
      * @brief move a file/folder
      */
-    function move($source, $target = 'out') {
-        exec('cp -R ' . __DIR__ . '/' . $source . ' ' . $target);
+    private static function move($source, $target = 'out') {
+        exec('cp -R ' . __DIR__ . '/../' . $source . ' ' . $target);
     }
 
     public static function build() {
@@ -30,9 +30,9 @@ class Bootsygen {
 
         $website->build();
 
-        move('res/js', $GLOBALS['CONFIG']['output']);
-        move('res/css', $GLOBALS['CONFIG']['output']);
-        move('res/img', $GLOBALS['CONFIG']['output']);
+        Bootsygen::move('res/js', $GLOBALS['CONFIG']['output']);
+        Bootsygen::move('res/css', $GLOBALS['CONFIG']['output']);
+        Bootsygen::move('res/img', $GLOBALS['CONFIG']['output']);
     }
 }
 

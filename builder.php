@@ -18,6 +18,6 @@ if (isset($argv[1]) && $argv[1] == 'config') {
 to generate a new config file.' . "\n");
 }
 
-Bootsygen.build();
+Bootsygen::build();
 
 ?>
