@@ -19,6 +19,7 @@ class MarkdownWrapper {
             foreach ($return as $line) {
                 $treturn .= $line;
             }
+            exec('rm -f BOOTSYGEN_TMP_');
         }
     }
 

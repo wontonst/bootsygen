@@ -41,7 +41,7 @@ Takes a file name and parses the file.
       unset($exploded[1]);
     }
     unset($exploded[0]);
-    $pagedata['content']= Markdown(implode("\n",$exploded));    //!!set page content
+    $pagedata['content']= MarkdownWrapper::markdown(implode("\n",$exploded));    //!!set page content
 
     //      ini_set('memory_limit','1MB');
 

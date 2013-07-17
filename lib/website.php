@@ -24,12 +24,11 @@ class Website {
     public static function create(&$config) {
         $website = new Website();
         $website->metadata = $config;
-	$website->metadata['description']=Markdown($website->metadata['description']);
+	$website->metadata['description']=MarkdownWrapper::markdown($website->metadata['description']);
         foreach ($config['pages'] as $v) {
             $filename = $config['input'] .'/'. $v . '.md';
             $website->add(Parser::parse($filename));
         }
-
         return $website;
     }
 
