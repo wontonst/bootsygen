@@ -3,25 +3,11 @@ require_once(__DIR__.'/markdown.php');
 
 class Parser {
 
-  /*
-    public static function parse($string) {
-        $exploded = array();
-        $key=strtok($string,'{}');
-        $value=strtok('{}');
-        $exploded[trim($key)]=trim($value);
-        while($key=strtok('{}')) {
-            $value=strtok('{}');
-            $exploded[trim($key)]=trim($value);
-        }
-        return Page::create($exploded);
-    }
-  */
   /**
 Takes a file name and parses the file.
    */
   public static function parse($filename)
   {
-
     $pagedata = array();                                                     //!! array to be sent to Page object constructor
 
     $file=explode('/',$filename);

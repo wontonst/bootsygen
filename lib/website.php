@@ -28,7 +28,6 @@ class Website {
         $website->metadata = $config;
 	$website->metadata['description']=Markdown($website->metadata['description']);
         foreach ($config['pages'] as $v) {
-
             $filename = $config['input'] .'/'. $v . '.md';
             $website->add(Parser::parse($filename));
         }
