@@ -16,9 +16,7 @@ class Website {
      */
     private $pages;
 
-    private function __construct() {
-
-    }
+    private function __construct() { }
 
     /**
      * Takes the configuration file and builds the webpage out of it.
