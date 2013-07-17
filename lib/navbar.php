@@ -25,7 +25,7 @@ class Navbar {
                 $categories[] = $v->getCategory();
             }
         }
-        uasort($categories, $GLOBALS['CONFIG']['navbarfunction']);
+//        uasort($categories, $GLOBALS['CONFIG']['navbarfunction']);
         foreach ($categories as $v) {
             $out.='<li class = "nav-header">' . $v . '</li>' . "\n";
             $toprint=array();
