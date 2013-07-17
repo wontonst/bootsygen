@@ -19,7 +19,6 @@ class Navbar {
         $out .='><a href="index.html">Home</a></li>';
         $out = "$out\n";
         $categories = array();
-        $items[] = '<li class = "nav-header">Design</li>';
 
         foreach ($pages as $v) {
             if (!in_array($v->getCategory(), $categories)) {
