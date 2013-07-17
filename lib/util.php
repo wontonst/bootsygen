@@ -70,7 +70,7 @@ CONFIG;
                     if (array_search($a, $arr) === false)
                         $GLOBALS['logger']->log('WARNING: config.php does not have navbar compare for category ' . $a . serialize($GLOBALS['CONFIG']['navbar']));
                     if (array_search($a2, $arr) === false)
-                        $GLOBALS['logger']->log('WARNING: config.php does not have navbar cmopare for category ' . $a2);
+                        $GLOBALS['logger']->log('WARNING: config.php does not have navbar compare for category ' . $a2);
                     return array_search($a, $arr) - array_search($a2, $arr);
                 };
     }
