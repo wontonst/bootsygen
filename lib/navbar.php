@@ -20,27 +20,18 @@ class Navbar {
         $out = "$out\n";
         $categories = array();
 
-        foreach ($pages as $v) {
-            if (!in_array($v->getCategory(), $categories)) {
-                $categories[] = $v->getCategory();
-            }
-        }
-//        uasort($categories, $GLOBALS['CONFIG']['navbarfunction']);
-        foreach ($categories as $v) {
-            $out.='<li class = "nav-header">' . $v . '</li>' . "\n";
-            $toprint=array();
-            foreach ($pages as $p) {
-                if ($p->getCategory() == $v) {
-                    $toprint[]=$p;
-                }
-            }
+
+foreach($pages as $v){
+//var_dump($pages);
+if(!empty($v))           $out.='<li class = "nav-header">' . $v[0]->getCategory() . '</li>' . "\n";
+            $toprint=$v;
             uasort($toprint,'Page::comparePages');
             foreach($toprint as $p) {
 	      $out.='<li ' . ($highlight == $p->getTitle() ? 'class="active"' : '') . '><a href="' . str_replace(' ','%20',$p->getTitle()) . '.html">' . $p->getTitle() . '</a></li>' . "\n";
 
             }
-        }
-        return $out;
+}
+return $out;
     }
 }
 ?>

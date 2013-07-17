@@ -33,7 +33,7 @@ class Website {
     }
 
     public function add(&$page) {
-        $this->pages[] = $page;
+        $this->pages[$page->getCategory()][] = $page;
 	//	var_dump($page);
     }
 
@@ -41,7 +41,8 @@ class Website {
       $this->buildIndex();
         $pages = $this->pages;
         foreach($this->pages as $p) {
-	  $this->buildPage($p);
+foreach($p as $v)
+	  $this->buildPage($v);
         }
     }
 /**
@@ -82,7 +83,8 @@ builds a single page (outputs to file)
     }
     private function createPreviews() {
       $array=array();
-        foreach ($this->pages as $page) {
+        foreach ($this->pages as $page2) {
+foreach($page2 as $page)
             if($page->hasDescription())
                 $array[$page->getTitle()]=$page->getDescription();
         }
